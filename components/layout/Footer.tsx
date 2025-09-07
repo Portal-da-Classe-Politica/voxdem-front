@@ -1,4 +1,6 @@
+
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface FooterProps {
   brandName?: string;
@@ -31,8 +33,8 @@ export default function Footer({
     email: "contato@email.com"
   },
   socialLinks = [
-    { platform: "Facebook", href: "#", icon: "f" },
-    { platform: "Instagram", href: "#", icon: "📷" }
+    { platform: "Facebook", href: "#", icon: "/svg/icons/facebook.svg" },
+    { platform: "Instagram", href: "#", icon: "/svg/icons/instagram.svg" }
   ],
   copyright = "Copyright © 2021. Todos os direitos reservados."
 }: FooterProps) {
@@ -61,11 +63,11 @@ export default function Footer({
             <h4 className="font-semibold mb-4">Contato</h4>
             <div className="space-y-2">
               <p className="flex items-center">
-                <span className="mr-2">📞</span>
+                <Image src="/svg/icons/call.svg" alt="Telefone" width={24} height={24} className="mr-2" />
                 {contactInfo.phone}
               </p>
               <p className="flex items-center">
-                <span className="mr-2">✉️</span>
+                <Image src="/svg/icons/mail.svg" alt="Email" width={24} height={24} className="mr-2" />
                 {contactInfo.email}
               </p>
             </div>
@@ -80,8 +82,10 @@ export default function Footer({
                   href={link.href} 
                   className="text-white hover:text-gray-200"
                   aria-label={link.platform}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="text-xl">{link.icon}</span>
+                  <Image src={link.icon} alt={link.platform} width={24} height={24} className="h-6 w-6" />
                 </a>
               ))}
             </div>

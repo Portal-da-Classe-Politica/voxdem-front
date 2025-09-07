@@ -1,7 +1,9 @@
+
 'use client';
 
 import { Button, Select } from "@/components";
 import { useState } from "react";
+import Image from 'next/image';
 
 export default function Filters() {
     const [selectedSurvey, setSelectedSurvey] = useState('');
@@ -13,7 +15,7 @@ export default function Filters() {
             <div className="p-6">
                 <div className="mb-6">
                     <div className="w-12 h-12 bg-[#3D58F5] rounded flex items-center justify-center mb-4">
-                        <span className="text-white font-bold text-lg">VD</span>
+                        <Image src="/svg/icons/filter_mix.svg" alt="Filtro" width={34} height={34}/>
                     </div>
                 </div>
 

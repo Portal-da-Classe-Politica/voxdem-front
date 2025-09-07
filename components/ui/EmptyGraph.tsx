@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface EmptyGraphProps {
     title?: string;
     description?: string;
@@ -11,9 +13,7 @@ export default function EmptyGraph({
         <div className="flex items-center border-2 border-dashed border-gray-300 rounded-lg bg-white">
             <div className="text-center p-12">
                 <div className="mb-6">
-                    <svg className="w-20 h-20 mx-auto text-[#3D58F5]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 12h2V9H7v8zm4 0h2V7h-2v10zm4 0h2V11h-2v6z" />
-                    </svg>
+                    <Image src="/svg/icons/area_chart.svg" alt="Gráfico vazio" width={80} height={80} className="mx-auto text-[#3D58F5]" />
                 </div>
                 <h3 className="text-xl font-medium text-gray-900 mb-3">
                     {title}
