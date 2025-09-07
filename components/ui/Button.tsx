@@ -4,7 +4,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
   href?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'blue';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
@@ -27,7 +27,8 @@ export default function Button({
 
   const variantClasses = {
     primary: 'bg-white text-[#3D58F5] hover:bg-gray-100',
-    secondary: 'bg-[#3D58F5] text-white hover:bg-[#2A45E5]'
+    secondary: 'bg-[#3D58F5] text-white hover:bg-[#2A45E5]',
+    blue: 'bg-[#3D58F5] text-white hover:bg-[#2A45E5]'
   };
 
   const buttonClasses = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
