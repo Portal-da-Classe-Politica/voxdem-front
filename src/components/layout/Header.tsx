@@ -16,9 +16,9 @@ export default function Header({
   instituteName = "Instituto Nacional de Ciência, Tecnologia e Inovação | Representação e legitimidade democrática | Belém",
   navigationItems = [
     { label: "Home", href: "/" },
-    { label: "Sobre", href: "/sobre" },
+    // { label: "Sobre", href: "/sobre" },
     { label: "Data Playgorund", href: "/dados" },
-    { label: "Contato", href: "/contato" }
+    // { label: "Contato", href: "/contato" }
   ]
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

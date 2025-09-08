@@ -24,9 +24,9 @@ export default function Footer({
   brandName = "VoxDem",
   menuItems = [
     { label: "Home", href: "/" },
-    { label: "Sobre", href: "/sobre" },
-    { label: "Dados", href: "/dados" },
-    { label: "Contato", href: "/contato" }
+    // { label: "Sobre", href: "/sobre" },
+    { label: "Data Playgorund", href: "/dados" },
+    // { label: "Contato", href: "/contato" }
   ],
   contactInfo = {
     phone: "(00) 000000000",
