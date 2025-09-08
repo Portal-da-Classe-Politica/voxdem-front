@@ -1,6 +1,6 @@
 'use client';
 
-import { EmptyGraph, Section, BarChart, LoadingSpinner } from '../../components';
+import { EmptyGraph, Section, BarChart, LoadingSpinner, DataTable } from '../../components';
 import Filters from './components/Filters';
 import { useState } from 'react';
 import { ChartApiResponse } from '../../types/chart';
@@ -28,11 +28,18 @@ export default function Dados() {
 
     if (chartData && chartData.success) {
       return (
-        <BarChart 
-          data={chartData.data.chartData}
-          title={`${chartData.data.question.code} - ${chartData.data.question.text}`}
-          totalResponses={chartData.data.totalResponses}
-        />
+        <div>
+          <BarChart 
+            data={chartData.data.chartData}
+            title={`${chartData.data.question.code} - ${chartData.data.question.text}`}
+            totalResponses={chartData.data.totalResponses}
+          />
+          <DataTable
+            data={chartData.data.chartData}
+            totalResponses={chartData.data.totalResponses}
+            questionCode={chartData.data.question.code}
+          />
+        </div>
       );
     }
 
