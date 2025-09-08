@@ -7,6 +7,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'blue';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  disabled?: boolean;
 }
 
 export default function Button({ 
@@ -15,7 +16,8 @@ export default function Button({
   href, 
   variant = 'primary', 
   size = 'md',
-  className = '' 
+  className = '',
+  disabled = false
 }: ButtonProps) {
   const baseClasses = 'font-semibold rounded-md transition-colors inline-flex items-center justify-center';
   
@@ -31,7 +33,9 @@ export default function Button({
     blue: 'bg-[#3D58F5] text-white hover:bg-[#2A45E5]'
   };
 
-  const buttonClasses = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
+  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
+
+  const buttonClasses = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${disabledClasses} ${className}`;
 
   if (href) {
     return (
@@ -42,7 +46,11 @@ export default function Button({
   }
 
   return (
-    <button onClick={onClick} className={buttonClasses}>
+    <button 
+      onClick={disabled ? undefined : onClick} 
+      className={buttonClasses}
+      disabled={disabled}
+    >
       {children}
     </button>
   );
