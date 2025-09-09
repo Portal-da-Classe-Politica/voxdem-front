@@ -1,6 +1,6 @@
 'use client';
 
-import { EmptyGraph, Section, BarChart, LoadingSpinner, DataTable } from '../../components';
+import { EmptyGraph, Section, BarChart, DataTable } from '../../components';
 import Filters from './components/Filters';
 import { useState } from 'react';
 import { ChartApiResponse } from '../../types/chart';
@@ -21,16 +21,16 @@ export default function Dados() {
     if (loadingChart) {
       return (
         <div className="flex items-center justify-center h-96">
-          <LoadingSpinner />
+          Carregando...
         </div>
       );
     }
 
     if (chartData && chartData.success) {
       return (
-        <div>
+        <div className="space-y-6">
           <BarChart 
-            data={chartData.data.chartData}
+            chartData={chartData.data.chartData}
             title={`${chartData.data.question.code} - ${chartData.data.question.text}`}
             totalResponses={chartData.data.totalResponses}
           />
@@ -60,12 +60,12 @@ export default function Dados() {
   return (
     <>
       <Section backgroundColor='bg-primary'>
-        <div className="flex gap-8">
+        <div className="space-y-8">
           <Filters 
             onChartDataLoaded={handleChartDataLoaded}
             onLoadingChange={handleLoadingChange}
           />
-          <div className="flex-1">
+          <div className="w-full">
             {renderChart()}
           </div>
         </div>

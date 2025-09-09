@@ -16,13 +16,20 @@ export interface ChartQuestion {
 export interface ChartData {
 	labels: string[];
 	datasets: ChartDataset[];
+	labelsDetailed: LabelsDetailed[];
 }
 
 export interface ChartDataset {
 	data: number[];
-	backgroundColor: string[];
-	borderColor: string[];
+	backgroundColor: string;
+	borderColor: string;
 	borderWidth: number;
+	label: string;
+}
+
+export interface LabelsDetailed {
+	code: string;
+	label: string;
 }
 
 export interface ChartApiErrorResponse {

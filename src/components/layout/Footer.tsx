@@ -36,7 +36,7 @@ export default function Footer({
     { platform: "Facebook", href: "#", icon: "/svg/icons/facebook.svg" },
     { platform: "Instagram", href: "#", icon: "/svg/icons/instagram.svg" }
   ],
-  copyright = "Copyright © 2021. Todos os direitos reservados."
+  copyright = "Copyright © 2025. Todos os direitos reservados."
 }: FooterProps) {
   return (
     <footer className="bg-[#3D58F5] text-white py-12">

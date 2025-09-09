@@ -13,7 +13,7 @@ interface HeaderProps {
 }
 
 export default function Header({ 
-  instituteName = "Instituto Nacional de Ciência, Tecnologia e Inovação | Representação e legitimidade democrática | Belém",
+  instituteName = "Instituto Nacional de Ciência, Tecnologia e Inovação | Representação e Legitimidade Democrática | ReDem",
   navigationItems = [
     { label: "Home", href: "/" },
     // { label: "Sobre", href: "/sobre" },

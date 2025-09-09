@@ -10,20 +10,20 @@ interface DataTableProps {
 }
 
 export default function DataTable({ data, totalResponses, questionCode }: DataTableProps) {
-  // Preparar os dados da tabela combinando labels com valores do primeiro dataset
-  const tableData = data.labels.map((label, index) => {
-    const value = data.datasets[0]?.data[index] || 0;
+  const tableData = data.labelsDetailed.map((label, index) => {
+    const value = data.datasets.reduce((sum, dataset) => {
+      return sum + (dataset.data[index] || 0);
+    }, 0);
+    
     const percentage = totalResponses > 0 ? ((value / totalResponses) * 100).toFixed(1) : '0.0';
     
     return {
       label,
       value,
       percentage: parseFloat(percentage),
-      backgroundColor: data.datasets[0]?.backgroundColor[index] || '#3B82F6'
     };
   });
 
-  // Ordenar por valor decrescente
   const sortedData = [...tableData].sort((a, b) => b.value - a.value);
 
   return (
@@ -60,7 +60,7 @@ export default function DataTable({ data, totalResponses, questionCode }: DataTa
               <tr key={index} className="hover:bg-gray-50 transition-colors duration-150">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
-                    {item.label}
+                    {parseInt(item.label.code) <= 100 && (item.label.code + " - ")}{item.label.label}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -76,18 +76,16 @@ export default function DataTable({ data, totalResponses, questionCode }: DataTa
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div
-                      className="h-4 rounded-full transition-all duration-300"
+                      className="h-2 rounded-full transition-all duration-300"
                       style={{
-                        backgroundColor: item.backgroundColor,
+                        backgroundColor: "#3B82F6",
                         width: `${Math.max(item.percentage * 2, 5)}px`,
-                        minWidth: '5px',
-                        maxWidth: '200px'
                       }}
                     />
-                    <div 
+                    {/* <div 
                       className="w-3 h-3 rounded-full ml-2 border-2 border-white shadow-sm"
                       style={{ backgroundColor: item.backgroundColor }}
-                    />
+                    /> */}
                   </div>
                 </td>
               </tr>

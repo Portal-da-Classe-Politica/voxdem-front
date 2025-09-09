@@ -14,6 +14,5 @@ export { default as Partners } from './ui/Partners';
 export { default as Select } from './ui/Select';
 export { default as SearchableSelect } from './ui/SearchableSelect';
 export { default as EmptyGraph } from './ui/EmptyGraph';
-export { default as LoadingSpinner } from './ui/LoadingSpinner';
 export { default as BarChart } from './ui/BarChart';
 export { default as DataTable } from './ui/DataTable';

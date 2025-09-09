@@ -81,81 +81,70 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
     }, []);
 
     return (
-        <div className="w-80 bg-gray-100 rounded-lg">
+        <div className="w-full bg-gray-100 rounded-lg">
             <div className="p-6">
-                <div className="mb-6">
-                    <div className="w-8 h-8 bg-[#3D58F5] rounded flex items-center justify-center mb-4">
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="w-8 h-8 bg-[#3D58F5] rounded flex items-center justify-center">
                         <Image src="/svg/icons/filter_mix.svg" alt="Filtro" width={24} height={24}/>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800">Filtros</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                    <div className="lg:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Pesquisa survey
+                        </label>
+                        <SearchableSelect
+                            options={questions.map((question) => ({
+                                value: question.code,
+                                label: `${question.code} - ${question.text}`
+                            }))}
+                            value={selectedSurvey}
+                            onChange={setSelectedSurvey}
+                            placeholder={loading ? "Carregando..." : "Selecione uma pesquisa"}
+                            loading={loading}
+                            maxDisplayLength={70}
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Variável a ser analisada (Opcional)
+                        </label>
+                        <Select
+                            value={selectedVariable}
+                            onChange={setSelectedVariable}
+                            placeholder={loading ? "Carregando..." : "Selecione uma opção"}
+                        >
+                            {profileAttributes.map((attribute) => (
+                                <option key={attribute.key} value={attribute.key}>
+                                    {attribute.name}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
+
+                    <div>
+                        <Button
+                            variant="blue"
+                            className="w-full"
+                            onClick={handleApplyFilters}
+                            disabled={loadingChart || !selectedSurvey}
+                        >
+                            {loadingChart ? 'Carregando...' : 'Aplicar'}
+                        </Button>
                     </div>
                 </div>
 
-                <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Pesquisa survey
-                    </label>
-                    <SearchableSelect
-                        options={questions.map((question) => ({
-                            value: question.code,
-                            label: `${question.code} - ${question.text}`
-                        }))}
-                        value={selectedSurvey}
-                        onChange={setSelectedSurvey}
-                        placeholder={loading ? "Carregando..." : "Selecione uma pesquisa"}
-                        loading={loading}
-                        maxDisplayLength={70}
-                    />
-                    {selectedSurvey && (
-                        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
-                            <p className="text-xs font-medium text-blue-800 mb-1">Pesquisa selecionada:</p>
-                            <p className="text-sm text-blue-700">
-                                {selectedSurvey} - {questions.find(q => q.code === selectedSurvey)?.text}
-                            </p>
-                        </div>
-                    )}
-                </div>
-
-                <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Variável a ser analisada (Opcional)
-                    </label>
-                    <Select
-                        value={selectedVariable}
-                        onChange={setSelectedVariable}
-                        placeholder={loading ? "Carregando..." : "Selecione uma opção"}
-                    >
-                        {profileAttributes.map((attribute) => (
-                            <option key={attribute.key} value={attribute.key}>
-                                {attribute.name}
-                            </option>
-                        ))}
-                    </Select>
-                </div>
-
-                {/* <div className="mb-8">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Filtros (Opcionais)
-                    </label>
-                    <Select
-                        value={selectedFilter}
-                        onChange={setSelectedFilter}
-                        placeholder={loading ? "Carregando..." : "Selecione uma opção"}
-                    >
-                        {profileAttributes.map((attribute) => (
-                            <option key={attribute.key} value={attribute.key}>
-                                {attribute.name}
-                            </option>
-                        ))}
-                    </Select>
-                </div> */}
-
-                <Button
-                    variant="blue"
-                    className="w-full"
-                    onClick={handleApplyFilters}
-                    disabled={loadingChart || !selectedSurvey}
-                >
-                    {loadingChart ? 'Carregando...' : 'Aplicar'}
-                </Button>
+                {selectedSurvey && (
+                    <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
+                        <p className="text-xs font-medium text-blue-800 mb-1">Pesquisa selecionada:</p>
+                        <p className="text-sm text-blue-700">
+                            {selectedSurvey} - {questions.find(q => q.code === selectedSurvey)?.text}
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     )
