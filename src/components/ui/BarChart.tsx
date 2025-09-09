@@ -65,11 +65,13 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         titleColor: '#ffffff',
         bodyColor: '#ffffff',
-        borderColor: '#3D58F5',
         borderWidth: 1,
         cornerRadius: 8,
         displayColors: false,
         callbacks: {
+          title: function(context: any) {
+            return chartData.labelsDetailed[context[0].dataIndex]?.label || '';
+          },
           label: function(context: any) {
             const percentage = ((context.parsed.y / totalResponses) * 100).toFixed(1);
             return `${context.parsed.y} respostas (${percentage}%)`;

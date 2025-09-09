@@ -135,7 +135,7 @@ export default function SearchableSelect({
       </button>
 
       {isOpen && !loading && (
-        <div className="absolute z-50 w-max max-w-md mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-80 overflow-hidden">
+        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-80 overflow-hidden">
           <div className="p-3 border-b border-gray-200">
             <input
               ref={searchInputRef}
