@@ -7,14 +7,17 @@ WORKDIR /app
 # Copiar arquivos de dependência
 COPY package*.json ./
 
-# Instalar dependências
-RUN npm ci --only=production
+# Instalar todas as dependências (incluindo devDependencies para o build)
+RUN npm ci
 
 # Copiar código fonte
 COPY . .
 
 # Build da aplicação
 RUN npm run build
+
+# Limpar devDependencies após o build para reduzir o tamanho
+RUN npm prune --production
 
 # Estágio de produção
 FROM node:18-alpine AS runner
