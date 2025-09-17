@@ -46,10 +46,11 @@ jobs:
             docker rmi voxdem-frontend:latest 2>/dev/null || true && \
             docker load < voxdem-frontend.tar && \
             SERVER_IP=\$(hostname -I | awk '{print \$1}') && \
-            echo '# Configurações de produção do VoxDem Frontend' > .env && \
+            echo '# Configurações de produção do VoxDem Frontend com subpath' > .env && \
             echo \"NEXT_PUBLIC_VOXDEM_API_URL=http://\${SERVER_IP}:3001/api\" >> .env && \
             echo 'NODE_ENV=production' >> .env && \
             echo 'PORT=3000' >> .env && \
+            echo 'NEXT_PUBLIC_BASE_PATH=/voxdem' >> .env && \
             echo \"# Deploy em \$(date)\" >> .env && \
             echo 'DEPLOY_VERSION=latest' >> .env && \
             echo '✅ Arquivo .env criado:' && cat .env && \
@@ -59,7 +60,8 @@ jobs:
             echo '📊 Status dos containers:' && docker compose -f docker-compose.frontend.yml ps && \
             rm -f voxdem-frontend.tar && \
             echo '✅ Deploy do VoxDem Frontend concluído!' && \
-            echo \"📍 VoxDem Frontend disponível em: http://\${SERVER_IP}:3002\" && \
+            echo \"📍 VoxDem Frontend disponível em: http://\${SERVER_IP}:3002/voxdem\" && \
+            echo \"📍 Via Nginx (configurar): http://\${SERVER_IP}/voxdem\" && \
             echo \"🔗 Backend configurado em: http://\${SERVER_IP}:3001/api\""
 
       - name: 🔍 Health Check Frontend
