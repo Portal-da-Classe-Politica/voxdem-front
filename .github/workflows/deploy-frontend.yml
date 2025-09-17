@@ -1,0 +1,86 @@
+name: Deploy VoxDem Frontend to UFPR Server
+
+# Trigger deployment only on push to main branch
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout do Código
+        uses: actions/checkout@v3
+
+      - name: 🔑 Configurar SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 🐳 Build Docker Image Frontend
+        run: |
+          # Build da aplicação VoxDem Frontend
+          docker build -t voxdem-frontend:latest .
+          
+          # Salvar imagem como arquivo tar
+          docker save voxdem-frontend:latest > voxdem-frontend.tar
+
+      - name: 📦 Transfer Frontend files to server
+        run: |
+          # Criar diretório no servidor se não existir
+          ssh root@${{ secrets.SSH_HOST }} "mkdir -p /opt/voxdem-frontend"
+          
+          # Transferir arquivos necessários
+          scp voxdem-frontend.tar root@${{ secrets.SSH_HOST }}:/opt/voxdem-frontend/
+          scp docker-compose.frontend.yml root@${{ secrets.SSH_HOST }}:/opt/voxdem-frontend/
+
+      - name: 🚀 Deploy VoxDem Frontend no servidor
+        run: |
+          ssh root@${{ secrets.SSH_HOST }} "cd /opt/voxdem-frontend && \
+            docker compose -f docker-compose.frontend.yml down 2>/dev/null || true && \
+            docker rmi voxdem-frontend:latest 2>/dev/null || true && \
+            docker load < voxdem-frontend.tar && \
+            SERVER_IP=\$(hostname -I | awk '{print \$1}') && \
+            echo '# Configurações de produção do VoxDem Frontend' > .env && \
+            echo \"NEXT_PUBLIC_VOXDEM_API_URL=http://\${SERVER_IP}:3001/api\" >> .env && \
+            echo 'NODE_ENV=production' >> .env && \
+            echo 'PORT=3000' >> .env && \
+            echo \"# Deploy em \$(date)\" >> .env && \
+            echo 'DEPLOY_VERSION=latest' >> .env && \
+            echo '✅ Arquivo .env criado:' && cat .env && \
+            (docker network ls | grep -q 'voxdem-network' || docker network create voxdem-network) && \
+            docker compose -f docker-compose.frontend.yml up -d && \
+            echo '⏳ Aguardando Frontend...' && sleep 30 && \
+            echo '📊 Status dos containers:' && docker compose -f docker-compose.frontend.yml ps && \
+            rm -f voxdem-frontend.tar && \
+            echo '✅ Deploy do VoxDem Frontend concluído!' && \
+            echo \"📍 VoxDem Frontend disponível em: http://\${SERVER_IP}:3002\" && \
+            echo \"🔗 Backend configurado em: http://\${SERVER_IP}:3001/api\""
+
+      - name: 🔍 Health Check Frontend
+        run: |
+          ssh root@${{ secrets.SSH_HOST }} << 'EOF'
+            # Aguardar aplicação subir
+            sleep 20
+            
+            # Verificar se Frontend está respondendo
+            if curl -f http://localhost:3002 2>/dev/null; then
+              echo "✅ VoxDem Frontend está funcionando!"
+            else
+              echo "❌ VoxDem Frontend não está respondendo"
+              echo "📋 Logs da aplicação:"
+              docker compose -f /opt/voxdem-frontend/docker-compose.frontend.yml logs --tail=20 voxdem-frontend
+              exit 1
+            fi
+          EOF
+
+      - name: 🧹 Cleanup
+        run: |
+          # Limpar arquivos locais
+          docker rmi voxdem-frontend:latest || true
+          rm -f voxdem-frontend.tar
