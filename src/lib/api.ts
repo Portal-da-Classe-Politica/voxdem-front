@@ -14,5 +14,5 @@ const createApiClient = (baseURL: string, timeout: number = 10000): AxiosInstanc
 };
 
 export const voxdemApi = createApiClient(
-  process.env.VOXDEM_API_URL || 'http://localhost:3001/api'
+  process.env.NEXT_PUBLIC_VOXDEM_API_URL || 'http://localhost:3001/api'
 );
