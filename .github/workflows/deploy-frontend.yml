@@ -24,8 +24,10 @@ jobs:
 
       - name: 🐳 Build Docker Image Frontend
         run: |
-          # Build da aplicação VoxDem Frontend
-          docker build -t voxdem-frontend:latest .
+          # Build da aplicação VoxDem Frontend com URL correta da API
+          docker build -t voxdem-frontend:latest \
+            --build-arg NEXT_PUBLIC_VOXDEM_API_URL=https://demovoxdem.com.br/api \
+            .
           
           # Salvar imagem como arquivo tar
           docker save voxdem-frontend:latest > voxdem-frontend.tar

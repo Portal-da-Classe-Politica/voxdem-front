@@ -4,6 +4,10 @@ FROM node:18-alpine AS builder
 # Definir diretório de trabalho
 WORKDIR /app
 
+# Argumentos de build para variáveis de ambiente
+ARG NEXT_PUBLIC_VOXDEM_API_URL=https://demovoxdem.com.br/api
+ENV NEXT_PUBLIC_VOXDEM_API_URL=$NEXT_PUBLIC_VOXDEM_API_URL
+
 # Copiar arquivos de dependência
 COPY package*.json ./
 
@@ -13,7 +17,7 @@ RUN npm ci
 # Copiar código fonte
 COPY . .
 
-# Build da aplicação
+# Build da aplicação (agora com a variável de ambiente correta)
 RUN npm run build
 
 # Limpar devDependencies após o build para reduzir o tamanho
