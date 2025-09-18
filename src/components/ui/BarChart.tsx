@@ -142,7 +142,7 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
         callbacks: {
           title: function(context: any) {
             console.log(context);
-            return context[0].dataset.label;
+            return chartData.labelsDetailed[context[0].dataIndex]?.label + (context[0].dataset.label ? ` (${context[0].dataset.label})` : "");
           },
           label: function(context: any) {
             const percentage = ((context.parsed.y / totalResponses) * 100).toFixed(1);
