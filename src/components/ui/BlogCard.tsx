@@ -25,13 +25,12 @@ export default function BlogCard({
       className={`bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow block ${className}`}
     >
       <div className="p-4">
-        <div className="bg-gray-200 w-full h-32 rounded mb-4 flex items-center justify-center">
+        <div className="bg-gray-200 w-full h-32 rounded mb-4 overflow-hidden relative">
           <Image 
             src={imageUrl} 
             alt={imageAlt} 
-            width={48} 
-            height={48} 
-            className="opacity-40" 
+            fill
+            className="object-cover" 
           />
         </div>
         <h3 className="font-semibold text-gray-800 mb-2">{title}</h3>

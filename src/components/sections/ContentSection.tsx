@@ -18,19 +18,23 @@ export default function ContentSection({
   items = [
     {
       title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s."
+      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+      imageUrl: "/images/blog/DSC_0042.JPG"
     },
     {
       title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s."
+      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+      imageUrl: "/images/blog/DSC_0065.JPG"
     },
     {
       title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s."
+      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+      imageUrl: "/images/blog/DSC_0357.JPG"
     },
     {
       title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s."
+      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+      imageUrl: "/images/blog/DSC_0426.JPG"
     }
   ],
   className = ""
