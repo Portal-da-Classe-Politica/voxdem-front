@@ -221,7 +221,7 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
         {chartData.datasets.length > 1 && (
           <button
             onClick={() => setIsFilterModalOpen(true)}
-            className={`flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 transition-colors flex-shrink-0 ${getFilterButtonClass()}`}
+            className={`flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 transition-colors flex-shrink-0 cursor-pointer ${getFilterButtonClass()}`}
             title="Filtrar labels do gráfico"
           >
             <Image

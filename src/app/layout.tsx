@@ -31,7 +31,7 @@ export default function RootLayout({
         <Footer />
         <FloatingButton 
           href="https://forms.gle/jDkEj9AXRNNVuAzZ9"
-          text="Pesquisa"
+          text="Deixe seu comentário"
         />
       </body>
     </html>
