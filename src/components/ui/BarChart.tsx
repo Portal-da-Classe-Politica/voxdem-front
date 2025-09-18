@@ -45,7 +45,18 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: chartData.datasets.length > 1,
+         display: chartData.datasets.length > 1,
+        labels: {
+          color: '#333',
+          font: {
+            size: 12,
+            family: 'Montserrat, sans-serif',
+          },
+          usePointStyle: true,
+          pointStyle: 'circle',
+          boxWidth: 10,
+          boxHeight: 10,
+        },
       },
       title: {
         display: true,
@@ -97,17 +108,18 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
         }
       },
       y: {
-        beginAtZero: true,
+        
         ticks: {
-          stepSize: 1,
+          stepSize: Math.ceil(Math.max(...chartData.datasets.flatMap(d => d.data)) / 10),
           color: '#6b7280',
           font: {
             size: 12,
-          }
+          },
         },
         grid: {
           color: '#e5e7eb',
           lineWidth: 1,
+          
         },
         border: {
           display: false
@@ -117,22 +129,14 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
     elements: {
       bar: {
         borderRadius: {
-          topLeft: 4,
-          topRight: 4,
+          topLeft: 5,
+          topRight: 5,
           bottomLeft: 0,
           bottomRight: 0
         },
         borderSkipped: false,
       }
     },
-    layout: {
-      padding: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
-      }
-    }
   };
 
   const data = {
