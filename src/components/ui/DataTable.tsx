@@ -24,8 +24,6 @@ export default function DataTable({ data, totalResponses, questionCode }: DataTa
     };
   });
 
-  const sortedData = [...tableData].sort((a, b) => b.value - a.value);
-
   return (
     <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
       <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
@@ -56,7 +54,7 @@ export default function DataTable({ data, totalResponses, questionCode }: DataTa
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {sortedData.map((item, index) => (
+            {tableData.map((item, index) => (
               <tr key={index} className="hover:bg-gray-50 transition-colors duration-150">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
