@@ -212,12 +212,16 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
 
   return (
     <div className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      {/* Botão de filtro */}
-      {chartData.datasets.length > 1 && (
-        <div className="flex justify-end mb-4">
+      {/* Cabeçalho com título e botão de filtro */}
+      <div className={`mb-4 ${chartData.datasets.length > 1 ? 'flex items-start justify-between gap-4' : 'text-center'}`}>
+        {/* Título */}
+        <h3 className="text-lg font-semibold text-gray-900 flex-1">{title}</h3>
+        
+        {/* Botão de filtro */}
+        {chartData.datasets.length > 1 && (
           <button
             onClick={() => setIsFilterModalOpen(true)}
-            className={`flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 transition-colors ${getFilterButtonClass()}`}
+            className={`flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 transition-colors flex-shrink-0 ${getFilterButtonClass()}`}
             title="Filtrar labels do gráfico"
           >
             <Image
@@ -230,12 +234,7 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
             />
             {getFilterButtonText()}
           </button>
-        </div>
-      )}
-
-      {/* Título */}
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        )}
       </div>
 
       {/* Gráfico */}
