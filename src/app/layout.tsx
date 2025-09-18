@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { Header, Footer } from "../components";
+import { Header, Footer, FloatingButton } from "../components";
 import "../styles/globals.css";
 
 const montserrat = Montserrat({
@@ -29,6 +29,10 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingButton 
+          href="https://forms.gle/jDkEj9AXRNNVuAzZ9"
+          text="Pesquisa"
+        />
       </body>
     </html>
   );

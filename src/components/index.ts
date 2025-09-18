@@ -17,3 +17,4 @@ export { default as EmptyGraph } from './ui/EmptyGraph';
 export { default as BarChart } from './ui/BarChart';
 export { default as ChartFilterModal } from './ui/ChartFilterModal';
 export { default as DataTable } from './ui/DataTable';
+export { default as FloatingButton } from './ui/FloatingButton';
