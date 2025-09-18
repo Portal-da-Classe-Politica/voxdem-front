@@ -93,7 +93,7 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
                     <div className="lg:col-span-2">
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Pesquisa survey
+                            Pergunta survey
                         </label>
                         <SearchableSelect
                             options={questions.map((question) => ({
@@ -110,7 +110,7 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Variável a ser analisada (Opcional)
+                            Cruzar com
                         </label>
                         <Select
                             value={selectedVariable}
