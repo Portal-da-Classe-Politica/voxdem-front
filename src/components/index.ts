@@ -15,4 +15,5 @@ export { default as Select } from './ui/Select';
 export { default as SearchableSelect } from './ui/SearchableSelect';
 export { default as EmptyGraph } from './ui/EmptyGraph';
 export { default as BarChart } from './ui/BarChart';
+export { default as ChartFilterModal } from './ui/ChartFilterModal';
 export { default as DataTable } from './ui/DataTable';
