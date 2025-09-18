@@ -45,7 +45,7 @@ export default function BarChart({ chartData, title, totalResponses }: BarChartP
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: true,
+        display: chartData.datasets.length > 1,
       },
       title: {
         display: true,
