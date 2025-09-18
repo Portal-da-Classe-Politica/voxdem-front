@@ -58,18 +58,18 @@ export default function Dados() {
   };
 
   return (
-    <>
-      <Section backgroundColor='bg-primary'>
-        <div className="space-y-8">
+    <div className="min-h-screen flex flex-col">
+      <Section backgroundColor='bg-primary' fullHeight>
+        <div className="space-y-8 min-h-[calc(100vh-200px)] flex flex-col">
           <Filters 
             onChartDataLoaded={handleChartDataLoaded}
             onLoadingChange={handleLoadingChange}
           />
-          <div className="w-full">
+          <div className="w-full flex-1 flex flex-col">
             {renderChart()}
           </div>
         </div>
       </Section>
-    </>
+    </div>
   );
 }

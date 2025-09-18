@@ -10,7 +10,7 @@ export default function EmptyGraph({
     description = "Selecione uma pesquisa, variável e aplique os filtros para visualizar os dados de transparência democrática."
 }: EmptyGraphProps) {
     return (
-        <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-white">
+        <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-white flex-1 min-h-96">
             <div className="text-center p-12">
                 <div className="mb-6">
                     <Image src="/svg/icons/area_chart.svg" alt="Gráfico vazio" width={80} height={80} className="mx-auto text-[#3D58F5]" />
