@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <HeroSection
-        title="VoxDem"
+        title={<Image src="/images/logo-voxdem.png" alt="VoxDem" width={300} height={90} />}
         subtitle="Transparência e dados para fortalecer a democracia"
         description="Visualize dados que incluem pesquisas sobre satisfação democrática, tolerância política, comportamento eleitoral, cultura política e legitimidade institucional, com abrangência nacional."
       >

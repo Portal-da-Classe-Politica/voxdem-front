@@ -1,9 +1,10 @@
+import Image from 'next/image';
 import { HeroSection } from '../../components';
 
 export default function Sobre() {
   return (
     <HeroSection
-      title="Sobre a VoxDem"
+      title={<Image src="/images/logo-voxdem.png" alt="VoxDem" width={300} height={90} />}
       subtitle="Conheça nossa missão e valores"
       description="A VoxDem é uma iniciativa pioneira que busca democratizar o acesso a dados sobre democracia e legitimidade política no Brasil. Desenvolvida por pesquisadores do INCT ReDem, nossa plataforma oferece análises rigorosas e dados confiáveis para fortalecer a pesquisa acadêmica e o engajamento cidadão."
       buttonText="Ver Metodologia"

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Button from '../ui/Button';
 
 interface HeroSectionProps {
-  title: string;
+  title: string | ReactNode;
   subtitle?: string;
   description: string;
   buttonText?: string;
@@ -24,7 +24,7 @@ export default function HeroSection({
     <section className={`bg-[#3D58F5] text-white py-16 ${className}`}>
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center min-h-[500px]">
         <div className="w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4">{title}</h1>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-left">{title}</h1>
           {subtitle && (
             <h2 className="text-xl lg:text-2xl mb-6 font-normal">{subtitle}</h2>
           )}
