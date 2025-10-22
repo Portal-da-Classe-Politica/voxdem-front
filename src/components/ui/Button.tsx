@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Link from 'next/link';
 
 interface ButtonProps {
   children: ReactNode;
@@ -39,9 +40,9 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} className={buttonClasses}>
+      <Link href={href} className={buttonClasses}>
         {children}
-      </a>
+      </Link>
     );
   }
 
