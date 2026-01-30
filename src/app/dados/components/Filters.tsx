@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { graphService } from "@/src/services/graphService";
 import { Question } from "@/src/types/question";
 import { ProfileAttribute } from "@/src/types/porfileAttributes";
+import { Survey } from "@/src/types/survey";
 import { ChartApiResponse } from "@/src/types/chart";
 
 interface FiltersProps {
@@ -15,18 +16,19 @@ interface FiltersProps {
 }
 
 export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersProps) {
-    const [selectedSurvey, setSelectedSurvey] = useState('');
-    const [selectedVariable, setSelectedVariable] = useState('');
+    const [selectedSurvey, setSelectedSurvey] = useState<string>('');
+    const [selectedQuestion, setSelectedQuestion] = useState('');
     const [selectedFilter, setSelectedFilter] = useState('');
     
+    const [surveys, setSurveys] = useState<Survey[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [profileAttributes, setProfileAttributes] = useState<ProfileAttribute[]>([]);
     const [loading, setLoading] = useState(true);
     const [loadingChart, setLoadingChart] = useState(false);
 
     const handleApplyFilters = async () => {
-        if (!selectedSurvey) {
-            alert('Por favor, selecione uma pesquisa survey.');
+        if (!selectedQuestion) {
+            alert('Por favor, selecione uma pergunta.');
             return;
         }
 
@@ -34,14 +36,15 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
             setLoadingChart(true);
             onLoadingChange(true);
 
+            const surveyId = selectedSurvey ? parseInt(selectedSurvey) : undefined;
             let chartResponse: ChartApiResponse;
             
-            if (selectedVariable) {
-                // Se uma variável foi selecionada, busca dados por atributo de perfil
-                chartResponse = await graphService.getChartDataByProfileAttribute(selectedSurvey, selectedVariable);
+            if (selectedFilter) {
+                // Se um filtro foi selecionado, busca dados por atributo de perfil
+                chartResponse = await graphService.getChartDataByProfileAttribute(selectedQuestion, selectedFilter, surveyId);
             } else {
                 // Se não, busca dados gerais da pergunta
-                chartResponse = await graphService.getChartData(selectedSurvey);
+                chartResponse = await graphService.getChartData(selectedQuestion, surveyId);
             }
 
             onChartDataLoaded(chartResponse);
@@ -54,31 +57,55 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
         }
     };
 
+    // Carrega surveys e profile attributes uma vez
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchInitialData = async () => {
             try {
                 setLoading(true);
-                const [questionsResponse, profileAttributesResponse] = await Promise.all([
-                    graphService.getQuestions(),
+                const [surveysResponse, profileAttributesResponse] = await Promise.all([
+                    graphService.getSurveys(),
                     graphService.getProfileAttributes()
                 ]);
                 
-                if (questionsResponse.success) {
-                    setQuestions(questionsResponse.data);
+                if (surveysResponse.success) {
+                    setSurveys(surveysResponse.data);
                 }
                 
                 if (profileAttributesResponse.success) {
                     setProfileAttributes(profileAttributesResponse.data);
                 }
             } catch (error) {
-                console.error('Erro ao carregar dados:', error);
+                console.error('Erro ao carregar dados iniciais:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchData();
+        fetchInitialData();
     }, []);
+
+    // Carrega questions quando survey muda
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                setLoading(true);
+                setSelectedQuestion(''); // Reseta a pergunta selecionada
+                
+                const surveyId = selectedSurvey ? parseInt(selectedSurvey) : undefined;
+                const questionsResponse = await graphService.getQuestions(surveyId);
+                
+                if (questionsResponse.success) {
+                    setQuestions(questionsResponse.data);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar perguntas:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchQuestions();
+    }, [selectedSurvey]);
 
     return (
         <div className="w-full bg-gray-100 rounded-lg">
@@ -90,19 +117,36 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
                     <h3 className="text-lg font-semibold text-gray-800">Filtros</h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-end">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Pesquisa
+                        </label>
+                        <Select
+                            value={selectedSurvey}
+                            onChange={setSelectedSurvey}
+                            placeholder={loading ? "Carregando..." : "Todas as pesquisas"}
+                        >
+                            {surveys.map((survey) => (
+                                <option key={survey.id} value={survey.id.toString()}>
+                                    {survey.description}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
+
                     <div className="lg:col-span-2">
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Pergunta survey
+                            Pergunta
                         </label>
                         <SearchableSelect
                             options={questions.map((question) => ({
                                 value: question.code,
                                 label: `${question.code} - ${question.text}`
                             }))}
-                            value={selectedSurvey}
-                            onChange={setSelectedSurvey}
-                            placeholder={loading ? "Carregando..." : "Selecione uma pesquisa"}
+                            value={selectedQuestion}
+                            onChange={setSelectedQuestion}
+                            placeholder={loading ? "Carregando..." : "Selecione uma pergunta"}
                             loading={loading}
                             maxDisplayLength={70}
                         />
@@ -113,8 +157,8 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
                             Cruzar com
                         </label>
                         <Select
-                            value={selectedVariable}
-                            onChange={setSelectedVariable}
+                            value={selectedFilter}
+                            onChange={setSelectedFilter}
                             placeholder={loading ? "Carregando..." : "Selecione uma opção"}
                         >
                             {profileAttributes.map((attribute) => (
@@ -130,18 +174,21 @@ export default function Filters({ onChartDataLoaded, onLoadingChange }: FiltersP
                             variant="blue"
                             className="w-full"
                             onClick={handleApplyFilters}
-                            disabled={loadingChart || !selectedSurvey}
+                            disabled={loadingChart || !selectedQuestion}
                         >
                             {loadingChart ? 'Carregando...' : 'Aplicar'}
                         </Button>
                     </div>
                 </div>
 
-                {selectedSurvey && (
+                {selectedQuestion && (
                     <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
-                        <p className="text-xs font-medium text-blue-800 mb-1">Pesquisa selecionada:</p>
+                        <p className="text-xs font-medium text-blue-800 mb-1">
+                            {selectedSurvey ? 'Pesquisa e pergunta selecionadas:' : 'Pergunta selecionada (todas as pesquisas):'}
+                        </p>
                         <p className="text-sm text-blue-700">
-                            {selectedSurvey} - {questions.find(q => q.code === selectedSurvey)?.text}
+                            {selectedSurvey && `${surveys.find(s => s.id.toString() === selectedSurvey)?.name} - `}
+                            {selectedQuestion} - {questions.find(q => q.code === selectedQuestion)?.text}
                         </p>
                     </div>
                 )}
