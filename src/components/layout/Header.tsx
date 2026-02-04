@@ -17,7 +17,7 @@ export default function Header({
   navigationItems = [
     { label: "Home", href: "/" },
     // { label: "Sobre", href: "/sobre" },
-    { label: "Data Playgorund", href: "/dados" },
+    { label: "Data Playground", href: "/dados" },
     // { label: "Contato", href: "/contato" }
   ]
 }: HeaderProps) {

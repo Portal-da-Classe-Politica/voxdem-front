@@ -25,7 +25,7 @@ export default function Footer({
   menuItems = [
     { label: "Home", href: "/" },
     // { label: "Sobre", href: "/sobre" },
-    { label: "Data Playgorund", href: "/dados" },
+    { label: "Data Playground", href: "/dados" },
     // { label: "Contato", href: "/contato" }
   ],
   contactInfo = {
