@@ -11,7 +11,7 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
-      - NEXT_PUBLIC_VOXDEM_API_URL=${NEXT_PUBLIC_VOXDEM_API_URL:-https://demovoxdem.com.br/api}
+      - NEXT_PUBLIC_VOXDEM_API_URL=${NEXT_PUBLIC_VOXDEM_API_URL:-https://voxdem.c3sl.ufpr.br/api}
     networks:
       - voxdem-network
     healthcheck:

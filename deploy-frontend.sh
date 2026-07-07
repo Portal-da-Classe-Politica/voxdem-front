@@ -9,7 +9,7 @@ set -e
 SERVER_IP=${1:-"localhost"}
 SERVER_USER="root"
 FRONTEND_PORT=3002
-BACKEND_URL="http://${SERVER_IP}:3001/api"
+BACKEND_URL="http://${SERVER_IP}:3008/api"
 
 echo "🚀 Iniciando deploy do VoxDem Frontend"
 echo "📍 Servidor: ${SERVER_IP}"
@@ -87,7 +87,7 @@ else
         docker load < voxdem-frontend.tar && \
         SERVER_IP_VAR=\$(hostname -I | awk '{print \$1}') && \
         echo '# Configurações de produção do VoxDem Frontend' > .env && \
-        echo \"NEXT_PUBLIC_VOXDEM_API_URL=http://\${SERVER_IP_VAR}:3001/api\" >> .env && \
+        echo \"NEXT_PUBLIC_VOXDEM_API_URL=http://\${SERVER_IP_VAR}:3008/api\" >> .env && \
         echo 'NODE_ENV=production' >> .env && \
         echo 'PORT=3000' >> .env && \
         echo \"# Deploy em \$(date)\" >> .env && \
