@@ -26,7 +26,7 @@ jobs:
         run: |
           # Build da aplicação VoxDem Frontend com URL correta da API
           docker build -t voxdem-frontend:latest \
-            --build-arg NEXT_PUBLIC_VOXDEM_API_URL=https://demovoxdem.com.br/api \
+            --build-arg NEXT_PUBLIC_VOXDEM_API_URL=https://voxdem.c3sl.ufpr.br/api \
             .
           
           # Salvar imagem como arquivo tar
@@ -49,7 +49,7 @@ jobs:
             docker load < voxdem-frontend.tar && \
             SERVER_IP=\$(hostname -I | awk '{print \$1}') && \
             echo '# Configurações de produção do VoxDem Frontend com subpath' > .env && \
-            echo \"NEXT_PUBLIC_VOXDEM_API_URL=https://\demovoxdem.com.br/api\" >> .env && \
+            echo \"NEXT_PUBLIC_VOXDEM_API_URL=https://voxdem.c3sl.ufpr.br/api\" >> .env && \
             echo 'NODE_ENV=production' >> .env && \
             echo 'PORT=3000' >> .env && \            
             echo \"# Deploy em \$(date)\" >> .env && \
