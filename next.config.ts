@@ -7,13 +7,12 @@ const nextConfig: NextConfig = {
   basePath: '/front',
   assetPrefix: '/front',
   images: {
-    // O otimizador embutido (/_next/image) exige o pacote "sharp" em produção
-    // self-hosted, que não está instalado (ver package.json). Sem ele, todo
-    // pedido de otimização volta 400 "The requested resource isn't a valid
-    // image" — foi o que quebrou as imagens depois da migração. Desativando
-    // a otimização, o <Image> vira uma <img> direto pro arquivo em /public
-    // (que já funciona, confirmado em /front/svg/partners/cnpq.png).
-    unoptimized: true,
+    // Loader customizado em vez de unoptimized:true — ver src/lib/imageLoader.ts
+    // para o motivo (o otimizador embutido do Next quebra com basePath +
+    // output:standalone, e unoptimized:true sozinho não aplica o basePath
+    // no src das imagens).
+    loader: 'custom',
+    loaderFile: './src/lib/imageLoader.ts',
   },
 };
 
