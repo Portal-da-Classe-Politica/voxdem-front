@@ -20,6 +20,7 @@ const defaultNavigationItems: NavItem[] = [
     type: 'dropdown',
     label: 'Sobre o projeto',
     items: [
+      { label: 'Sobre', href: '/sobre-o-projeto' },
       { label: 'Equipe', href: '/equipe' },
       { label: 'Comitê Científico', href: '/comite-cientifico' },
     ],
