@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "VoxDem - Transparência e dados para fortalecer a democracia",
+  title: "VoxDem - Vozes da Democracia",
   description: "Visualize dados que incluem pesquisas sobre satisfação democrática, tolerância política, comportamento eleitoral, cultura política e legitimidade institucional, com abrangência nacional.",
 };
 

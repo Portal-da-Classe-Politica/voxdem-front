@@ -5,6 +5,7 @@ interface HeroSectionProps {
   title: string | ReactNode;
   subtitle?: string;
   description: string;
+  complementaryDescription?: string;
   buttonText?: string;
   buttonHref?: string;
   children?: ReactNode;
@@ -15,6 +16,7 @@ export default function HeroSection({
   title,
   subtitle,
   description,
+  complementaryDescription,
   buttonText = "Acessar Ferramenta",
   buttonHref = "#",
   children,
@@ -31,6 +33,11 @@ export default function HeroSection({
           <p className="text-base lg:text-lg mb-8 leading-relaxed">
             {description}
           </p>
+          {complementaryDescription && (
+            <p className="text-base lg:text-lg mb-8 leading-relaxed">
+              {complementaryDescription}
+            </p>
+          )}
           <Button href={buttonHref}>
             {buttonText}
           </Button>

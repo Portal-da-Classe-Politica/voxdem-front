@@ -10,8 +10,9 @@ export default function Home() {
     <>
       <HeroSection
         title={<Image src="/images/logo-voxdem.png" alt="VoxDem" width={300} height={90} />}
-        subtitle="Transparência e dados para fortalecer a democracia"
+        subtitle="Vozes da Democracia"
         description="Visualize dados que incluem pesquisas sobre satisfação democrática, tolerância política, comportamento eleitoral, cultura política e legitimidade institucional, com abrangência nacional."
+        complementaryDescription="A plataforma agrega dados de surveys nacionais conduzidos periodicamente pelo INCT ReDem sobre percepções e valores democráticos no Brasil, com cobertura de cidadãos e representantes políticos."
         buttonHref="/dados"
       >
         <div className="relative w-100 h-85">
@@ -31,7 +32,9 @@ export default function Home() {
 
       <HeroSection
         title="O que é?"
-        description="A VoxDem é uma plataforma digital inovadora que democratiza o acesso a dados sobre democracia e legitimidade política no Brasil. Desenvolvida pelo INCT ReDem, a plataforma oferece acesso público e gratuito a análises descritivas e cruzamentos de dados gerados pelo instituto e instituições parceiras, promovendo transparência científica e engajamento cidadão com pesquisas sobre comportamento político."
+        description="
+
+    Os dados são produzidos pelo INCT ReDem (Instituto Nacional de Ciência e Tecnologia em Representação e Legitimidade Democrática), projeto financiado pelo CNPq, e coletados por institutos de pesquisa independentes com padrões internacionais de qualidade. O acesso é público e gratuito."
         buttonHref="/dados"
       >
         <div className="relative w-120 h-150">
