@@ -3,6 +3,7 @@ import Image from 'next/image';
 interface TeamMember {
   name: string;
   imageUrl: string;
+  description: string;
   linkedin?: string;
   email?: string;
   instagram?: string;
@@ -10,42 +11,37 @@ interface TeamMember {
 
 const membros: TeamMember[] = [
   {
-    name: 'Pesquisador 1',
+    name: 'Adriano Codato',
     imageUrl: '/images/blog/DSC_0042.JPG',
+    description:
+      'Professor de Ciência Política na UFPR e editor-chefe da Revista de Sociologia e Política. Coordenador do INCT ReDem. Pesquisa representação política, elites políticas e estatais e carreiras políticas.',
     linkedin: '#',
     email: 'mailto:contato@voxdem.org',
     instagram: '#',
   },
   {
-    name: 'Pesquisador 2',
+    name: 'Renato Perissinotto',
     imageUrl: '/images/blog/DSC_0065.JPG',
+    description:
+      'Doutor em Ciências Sociais pela Unicamp. Professor de Ciência Política da UFPR. Pesquisa recrutamento político-partidário, perfil das elites políticas e estatais e relação entre elites e decisão política.',
     linkedin: '#',
     email: 'mailto:contato@voxdem.org',
   },
   {
-    name: 'Pesquisadora 3',
+    name: 'Ednaldo Ribeiro',
     imageUrl: '/images/blog/DSC_0357.JPG',
+    description:
+      'Doutor em Sociologia pela UFPR. Professor de Ciência Política na UEM e na UFPR. Vice-coordenador do INCT ReDem. Bolsista de produtividade do CNPq. Pesquisa atitudes democráticas e ativismo político.',
     email: 'mailto:contato@voxdem.org',
     instagram: '#',
   },
   {
-    name: 'Pesquisador 4',
+    name: 'Julian Borba',
     imageUrl: '/images/blog/DSC_0042.JPG',
+    description:
+      'Doutor em Ciência Política pela UFRGS. Professor do Departamento de Sociologia e Ciência Política da UFSC. Pesquisa opinião pública e comportamento político.',
     linkedin: '#',
     email: 'mailto:contato@voxdem.org',
-  },
-  {
-    name: 'Pesquisadora 5',
-    imageUrl: '/images/blog/DSC_0065.JPG',
-    linkedin: '#',
-    email: 'mailto:contato@voxdem.org',
-    instagram: '#',
-  },
-  {
-    name: 'Pesquisador 6',
-    imageUrl: '/images/blog/DSC_0357.JPG',
-    email: 'mailto:contato@voxdem.org',
-    instagram: '#',
   },
 ];
 
@@ -86,6 +82,7 @@ function TeamCard({ member }: { member: TeamMember }) {
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-black mb-2">{member.name}</h3>
+        <p className="text-sm text-gray-600 mb-3 leading-relaxed">{member.description}</p>
         <div className="flex items-center gap-3 text-[#3D58F5]">
           {member.linkedin && (
             <a href={member.linkedin} aria-label="LinkedIn" className="hover:opacity-70">
