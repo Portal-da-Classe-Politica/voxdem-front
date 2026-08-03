@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'redem.c3sl.ufpr.br',
       },
+       {
+        protocol: 'https',
+        hostname: 'voxdem.c3sl.ufpr.br',
+      },
     ],
     loader: 'custom',
     loaderFile: './src/lib/imageLoader.ts',
