@@ -1,44 +1,21 @@
 import BlogCard from '../ui/BlogCard';
-
-interface ContentItem {
-  title: string;
-  description: string;
-  imageUrl?: string;
-  href?: string;
-}
+import { blogService } from '../../services/blogService';
 
 interface ContentSectionProps {
   title?: string;
-  items?: ContentItem[];
   className?: string;
 }
 
-export default function ContentSection({
+export default async function ContentSection({
   title = "Últimos conteúdos",
-  items = [
-    {
-      title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
-      imageUrl: "/images/blog/DSC_0042.JPG"
-    },
-    {
-      title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
-      imageUrl: "/images/blog/DSC_0065.JPG"
-    },
-    {
-      title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
-      imageUrl: "/images/blog/DSC_0357.JPG"
-    },
-    {
-      title: "Lorem Ipsum",
-      description: "Lorem Sed ut perspiciatis unde omnis iste natus error sit voluptatem industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
-      imageUrl: "/images/blog/DSC_0426.JPG"
-    }
-  ],
   className = ""
 }: ContentSectionProps) {
+  const posts = (await blogService.getLatestPosts(4)).slice(0, 4);
+
+  if (posts.length === 0) {
+    return null;
+  }
+
   return (
     <section className={`py-16 bg-white ${className}`}>
       <div className="container mx-auto px-4">
@@ -46,13 +23,15 @@ export default function ContentSection({
           <span className="border-l-4 border-yellow-500 pl-4">{title}</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item, index) => (
+          {posts.map((post) => (
             <BlogCard
-              key={index}
-              title={item.title}
-              description={item.description}
-              imageUrl={item.imageUrl}
-              href={item.href}
+              key={post.id}
+              title={post.title}
+              description={post.description}
+              category={post.category}
+              imageUrl={post.imageUrl}
+              imageAlt={post.imageAlt}
+              href={post.href}
             />
           ))}
         </div>
