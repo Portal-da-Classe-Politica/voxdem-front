@@ -7,10 +7,12 @@ const nextConfig: NextConfig = {
   basePath: '/front',
   assetPrefix: '/front',
   images: {
-    // Loader customizado em vez de unoptimized:true — ver src/lib/imageLoader.ts
-    // para o motivo (o otimizador embutido do Next quebra com basePath +
-    // output:standalone, e unoptimized:true sozinho não aplica o basePath
-    // no src das imagens).
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'redem.c3sl.ufpr.br',
+      },
+    ],
     loader: 'custom',
     loaderFile: './src/lib/imageLoader.ts',
   },
