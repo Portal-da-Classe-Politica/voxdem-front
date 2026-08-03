@@ -16,3 +16,7 @@ const createApiClient = (baseURL: string, timeout: number = 10000): AxiosInstanc
 export const voxdemApi = createApiClient(
   process.env.NEXT_PUBLIC_VOXDEM_API_URL || 'https://voxdem.c3sl.ufpr.br/api'
 );
+
+export const uploadDocsApi = createApiClient(
+  process.env.NEXT_PUBLIC_UPLOAD_DOCS_API_URL || 'https://voxdem.c3sl.ufpr.br/upload-docs-api'
+);

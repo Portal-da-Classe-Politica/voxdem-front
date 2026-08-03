@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { Section } from '../../components';
+import DownloadLink from '../../components/ui/DownloadLink';
 import { documentService } from '../../services/documentService';
 import { Documento } from '../../types/document';
 
 async function getDocumentos(): Promise<Documento[]> {
-  const response = await documentService.getDocuments();
-  return response.data;
+  return documentService.getDocuments();
 }
 
 function FileIcon() {
@@ -51,10 +51,10 @@ function DocumentCard({ documento }: { documento: Documento }) {
   return (
     <article className="bg-white rounded-xl p-6 flex flex-col h-full border border-gray-300 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="relative w-full h-32 mb-6 rounded bg-gray-100 overflow-hidden flex items-center justify-center">
-        {documento.imageUrl ? (
+        {documento.imagePublicUrl ? (
           <Image
-            src={documento.imageUrl}
-            alt={documento.imageAlt || documento.title}
+            src={documento.imagePublicUrl}
+            alt={documento.title}
             fill
             className="object-cover"
           />
@@ -68,15 +68,13 @@ function DocumentCard({ documento }: { documento: Documento }) {
         {documento.description}
       </p>
 
-      <a
-        href={documento.href}
-        target={documento.external ? '_blank' : undefined}
-        rel={documento.external ? 'noopener noreferrer' : undefined}
-        className="inline-flex items-center gap-2 text-sm font-semibold text-[#3D58F5] mt-4 hover:underline"
+      <DownloadLink
+        url={documento.filePublicUrl}
+        filename={documento.fileOriginal || `${documento.title}.pdf`}
       >
         Download
         <DownloadIcon />
-      </a>
+      </DownloadLink>
     </article>
   );
 }
